@@ -1,14 +1,3 @@
-# Ask User for number
-
-# Ask User for operation
-
-# Ask User for second number
-
-# pick correct function
-
-# carry out function
-
-# Ask user for another calc with same number
 def add(num1, num2):
     return num1 + num2
 
@@ -21,26 +10,36 @@ def multiply(num1, num2):
 def divide(num1, num2):
     return num1 / num2
 
-save_answer = True
+operations_dict = {
+    "+" : add, 
+    "-" : minus,
+    "*" : multiply,
+    "/" : divide
+}
 
-num1 = float(input("Input your first number: "))
-while save_answer:
-    operation = input("Pick an operation +-*/ : ")
-    num2 = float(input("Input your second number: "))
+def calculator():
+    save_answer = True
 
-    if operation == "+":
-        answer = add(num1, num2)
-    elif operation == "-":
-        answer = minus(num1, num2)
-    elif operation == "*":
-        answer = multiply(num1, num2)
-    elif operation == "/":
-        answer = divide(num1, num2)
+    num1 = float(input("Input your first number: "))
+    while save_answer:
+        for key in operations_dict:
+            print(key)
+        operation = input("Pick an operation +-*/ : ")
+        if operation not in operations_dict:
+            print("Invalid operation")
+        else:
+            num2 = float(input("Input your second number: "))
 
-    print(answer)
+            answer = operations_dict[operation](num1, num2)
 
-    save_answer = input("Would you like to use your last answer in the next calculation? (y/n): ")
-    if save_answer == "n":
-        save_answer = False
-    else:
-        num1 = answer
+            print(f"{num1} {operation} {num2} = {answer}")
+
+            save_answer = input("Would you like to use your last answer in the next calculation? (y/n): ")
+            if save_answer == "n":
+                save_answer = False
+                print("\n"*20)
+                calculator()                    # Use recursion to use the calculator over and over.
+            else:
+                num1 = answer
+
+calculator()
