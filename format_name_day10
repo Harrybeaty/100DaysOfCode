@@ -1,0 +1,8 @@
+def format_name(f_name, l_name):
+    """Takes a first and last name 
+        and makes it title case."""
+    capitalized_name = " ".join([f_name, l_name]).title()
+    return capitalized_name
+
+my_name = format_name("harry", "beaty")
+print(my_name)
