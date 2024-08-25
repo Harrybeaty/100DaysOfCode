@@ -1,6 +1,6 @@
 import random
 cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
-
+# Remember to create functions when a task needs to be repeated for multiple users, in this case dealing a card, or calculating scores.
 user_hand = []
 dealer_hand = []
 
@@ -58,7 +58,6 @@ while run:
                 # If user twists, draw a card, sum all cards, display all cards
                 user_new_card = random.choice(cards)
                 print(f"Drawn user card: {user_new_card}")
-                user_hand.append(11)
                 user_hand.append(user_new_card)
                 print(f"Your Cards: {user_hand}")
                 user_total = sum(user_hand)
