@@ -20,37 +20,35 @@ def choose_album(dict):
     keys_list = list(dict.keys())
     return random.choice(keys_list)
 
-def check_album_is_new(used, album1, album2):
-    while album2 in used or album2 == album1:
-        album2 = choose_album(albums_dict)
-    return album2
-
 # select 2 albums
 score = 0
-used_albums = []
 known_album_name = choose_album(albums_dict)
 album_unknown = choose_album(albums_dict)
-used_albums.append(known_album_name)
-used_albums.append(album_unknown)
-
 # Make sure the albums are different.
-while album_unknown == known_album_name:
-    album_unknown = choose_album(albums_dict)
-    
+def albums_different(album1, album2, dict):
+    while album1 == album2:
+        album2 = choose_album(dict)
+
+    return album2    
 # Display albums, sales and ask question.
 game_over = False
 while not game_over:
     known_album_sales = albums_dict[known_album_name]
+    albums_dict.pop(known_album_name)
     album_unknown_sales = albums_dict[album_unknown]
-    user_answer = input(f"Did {album_unknown} have higher or lower sales than {known_album_sales} million sales of {known_album_name}? Higher/Lower ").lower()
-
-    if album_unknown_sales > known_album_sales and user_answer == "higher" or album_unknown_sales < known_album_sales and user_answer == "lower":
-         print("You are correct!!")
-         score += 1
-         print(f"Your score is {score}.")
-         known_album_name = album_unknown
-         album_unknown = choose_album(albums_dict)
-         album_unknown = check_album_is_new(used_albums, known_album_name, album_unknown)
-    else:
-        print(f"Incorrect, game over, your score is {score}")
-        game_over = True
+    user_answer = ""
+    while user_answer != "higher" or user_answer != "lower":
+        user_answer = input(f"Did {album_unknown} have higher or lower sales than {known_album_sales} million sales of {known_album_name}? Higher/Lower ").lower()
+        if user_answer == "higher" or user_answer == "lower":
+            if album_unknown_sales > known_album_sales and user_answer == "higher" or album_unknown_sales < known_album_sales and user_answer == "lower":
+                print("You are correct!!")
+                score += 1
+                print(f"Your score is {score}.")
+                known_album_name = album_unknown
+                if score == 10:
+                    print("You Win")
+                    break
+                album_unknown = albums_different(known_album_name, album_unknown, albums_dict)
+            else:
+                print(f"Incorrect, game over, your score is {score}")
+                game_over = True
