@@ -18,17 +18,9 @@ while is_on:
         moneyaction.report()
     else:
         drink = menu.find_drink(choice)
-
-        if coffeeaction.is_resource_sufficient(drink):
-            cost = drink.cost
-
-            if moneyaction.make_payment(cost):
+        cost = drink.cost
+        if coffeeaction.is_resource_sufficient(drink) and moneyaction.make_payment(cost):
                 coffeeaction.make_coffee(drink)
-            else:
-                print("Insufficient Payment.")
-        else:
-            print("Insufficient Resources.")
-            is_on = False
 
 
 
